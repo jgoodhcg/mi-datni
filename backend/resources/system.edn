@@ -30,9 +30,11 @@
  :reitit.routes/api {:base-path "/api"
                      :env       #ig/ref :system/env
                      :query-fn  #ig/ref :db.sql/query-fn  }
+ :reitit.routes/app {:base-path ""
+                     :env       #ig/ref :system/env}
  :router/routes     {:routes #ig/refset :reitit/routes}
  :router/core       {:routes #ig/ref :router/routes}
- :db.sql/connection #profile {:dev  {:jdbc-url "jdbc:postgresql://localhost/backend?user=backend&password=backend"}
+ :db.sql/connection #profile {:dev  {:jdbc-url #env JDBC_URL}
                               :test {}
                               :prod {:jdbc-url   #env JDBC_URL
                                      :init-size  1
@@ -44,4 +46,10 @@
                      :filename "queries.sql"}
  :db.sql/migrations {:store            :database
                      :db               {:datasource #ig/ref :db.sql/connection}
-                     :migrate-on-init? true}}
+                     :migrate-on-init? true}
+ :clerk/script-attr {:async                      true
+                     :crossorigin                "anonymous"
+                     :data-clerk-publishable-key #env CLERK_PUB_KEY
+                     :onload                     "window.Clerk.load()"
+                     :src                        #env CLERK_SRC
+                     :type                       "text/javascript"}}

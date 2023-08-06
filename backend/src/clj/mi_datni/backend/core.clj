@@ -14,6 +14,7 @@
 
     ;; Routes
     [mi-datni.backend.web.routes.api]
+    [mi-datni.backend.web.routes.app]
     )
   (:gen-class))
 

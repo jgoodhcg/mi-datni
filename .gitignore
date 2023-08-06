@@ -2,3 +2,5 @@
 .clj-kondo/.cache/
 
 .lsp/.cache/
+
+backend/.secrets.sh
